@@ -1,7 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests",
+  testDir: ".",
   timeout: 30 * 1000,
   retries: 2,
   workers: 1,
@@ -30,5 +30,5 @@ export default defineConfig({
   },
 
   reporter: [["html"], ["list"]],
-  projects: [{ name: "chromium" }, { name: "firefox" }, { name: "webkit" }],
+  // projects: [{ name: "chromium" }, { name: "firefox" }, { name: "webkit" }],
 });
