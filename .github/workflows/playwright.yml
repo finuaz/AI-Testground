@@ -54,6 +54,11 @@ jobs:
       # - name: Install Playwright browsers
       #   run: npx playwright install --with-deps
 
+      - name: Install zstd
+        run: |
+          apt-get update
+          apt-get install -y zstd
+          
       - name: Install Ollama
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
