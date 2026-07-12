@@ -58,15 +58,14 @@ jobs:
         run: |
           apt-get update
           apt-get install -y zstd
-          
+
       - name: Install Ollama
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
 
       - name: Start Ollama
         run: |
-          ollama serve &
-          sleep 5
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
 
       - uses: actions/cache@v4
         with:
