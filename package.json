@@ -16,7 +16,8 @@
     "format:check": "prettier . --check",
     "check": "npm run format:check && npm run lint && playwright test && playwright show-report",
     "check:ci": "npm run format:check && npm run lint && playwright test --reporter=dot",
-    "docker:check": "docker run --rm deca-playwright"
+    "docker:check": "docker run --rm deca-playwright",
+    "ollama:start": "ollama serve"
   },
   "keywords": [],
   "author": "",
