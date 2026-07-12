@@ -4,6 +4,7 @@ import { env } from "../../utils/env";
 import { Ollama } from "ollama";
 
 const apiKey = env.ollamaApiKey;
+const ollamaModel = env.ollamaModel;
 dotenv.config();
 
 test("Ollama api responds", async ({ request }) => {
@@ -15,7 +16,7 @@ test("Ollama api responds", async ({ request }) => {
   });
 
   const response = await ollama.chat({
-    model: "gemma3:12b",
+    model: ollamaModel,
     messages: [{ role: "user", content: "Explain quantum computing briefly" }],
     stream: true,
   });

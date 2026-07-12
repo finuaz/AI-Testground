@@ -10,7 +10,7 @@ test("Ollama responds", async ({ request }) => {
     //     'Authorization': `Bearer ${apiKey}`
     // },
     data: {
-      model: "gemma3:1b",
+      model: process.env.OLLAMA_MODEL || "gemma3:1b",
       prompt: "What is 2+2?",
       stream: false,
     },

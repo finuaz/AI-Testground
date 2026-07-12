@@ -1,5 +1,12 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
+import dotenv from "dotenv";
+import { env } from "../../utils/env";
+import { Ollama } from "ollama";
+
+const apiKey = env.ollamaApiKey;
+const ollamaModel = env.ollamaModel;
+dotenv.config();
 // import { spawn } from "child_process";
 
 // spawn("ollama", ["serve"], {
@@ -14,8 +21,7 @@ export const options = {
 
 export default function () {
   const payload = JSON.stringify({
-    // model: "gemma3:4b",
-    model: "gemma3:4b-cloud",
+    model: ollamaModel,
     prompt: "What is 2+2?",
     stream: false,
   });

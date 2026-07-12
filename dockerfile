@@ -4,4 +4,5 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 # RUN npx playwright install
-CMD ["npx", "playwright", "test"]
+# CMD ["npx", "playwright", "test"]
+ENV CI=true
