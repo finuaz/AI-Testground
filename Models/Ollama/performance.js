@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { sleep, check } from 'k6';
+import { sleep, check } from "k6";
 // import { spawn } from "child_process";
 
 // spawn("ollama", ["serve"], {
@@ -7,32 +7,28 @@ import { sleep, check } from 'k6';
 //     stdio: "ignore",
 // }).unref();
 
-
 export const options = {
   vus: 5,
-  duration: '15s',
+  duration: "15s",
 };
 
 export default function () {
-    const payload = JSON.stringify({
-        model: "gemma3:4b",
-        prompt: "What is 2+2?",
-        stream: false
-    });
+  const payload = JSON.stringify({
+    // model: "gemma3:4b",
+    model: "gemma3:4b-cloud",
+    prompt: "What is 2+2?",
+    stream: false,
+  });
 
-    const res = http.post(
-        "http://localhost:11434/api/generate",
-        payload,
-        {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
+  const res = http.post("http://localhost:11434/api/generate", payload, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-    console.log(res.timings.duration);
-    console.log(res.status)
-    console.log(res.body)
-    check(res, { "status is 200": (res) => res.status === 200 });
-    sleep(1);
+  console.log(res.timings.duration);
+  console.log(res.status);
+  console.log(res.body);
+  check(res, { "status is 200": (res) => res.status === 200 });
+  sleep(1);
 }

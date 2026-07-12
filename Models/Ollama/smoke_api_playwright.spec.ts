@@ -13,13 +13,13 @@
 //     //     Authorization: "Bearer " + apiKey,
 //     //   },
 //     // });
-    
+
 //     // const response = await ollama.chat({
 //     //   model: "gemma3:12b",
 //     //   messages: [{ role: "user", content: "Explain quantum computing briefly" }],
 //     //   stream: true,
 //     // });
-    
+
 //     const response = await request.post(
 //     "https://ollama.com",
 //         {
@@ -46,7 +46,4 @@
 
 //     await expect(body.response).toContain('quantum computing');
 
-
-    
 // });
-
