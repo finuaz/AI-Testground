@@ -1,12 +1,8 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import dotenv from "dotenv";
-import { env } from "../../utils/env";
-import { Ollama } from "ollama";
+import { env } from "../../utils/env.k6.ts";
 
-const apiKey = env.ollamaApiKey;
 const ollamaModel = env.ollamaModel;
-dotenv.config();
 // import { spawn } from "child_process";
 
 // spawn("ollama", ["serve"], {
