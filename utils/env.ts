@@ -8,7 +8,7 @@ export const env = {
   //   geminiKey: process.env.GEMINI_API_KEY!,
   ollamaUrl: process.env.OLLAMA_URL ?? "http://localhost:11434",
   ollamaApiKey: process.env.OLLAMA_API_KEY,
-  ollamaModel: process.env.OLLAMA_MODEL || "gemma3:1b",
+  ollamaModel: process.env.OLLAMA_MODEL ?? "gemma3:1b",
 };
 
 export const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY!;

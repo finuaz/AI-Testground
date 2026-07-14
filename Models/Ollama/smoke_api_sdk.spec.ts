@@ -5,11 +5,14 @@ import { Ollama } from "ollama";
 
 const apiKey = env.ollamaApiKey;
 const ollamaModel = env.ollamaModel;
+const ollamaUrl = env.ollamaUrl;
 dotenv.config();
 
 test("Ollama api responds", async ({ request }) => {
+  test.setTimeout(120000);
+
   const ollama = new Ollama({
-    host: "https://ollama.com",
+    host: ollamaUrl,
     headers: {
       Authorization: "Bearer " + apiKey,
     },
@@ -23,10 +26,6 @@ test("Ollama api responds", async ({ request }) => {
 
   let fullResponse = "";
 
-  // for await (const part of response) {
-  //     fullResponse += part.message.content;
-  // }
-
   for await (const part of response) {
     process.stdout.write(part.message.content);
     fullResponse += part.message.content;
@@ -36,5 +35,4 @@ test("Ollama api responds", async ({ request }) => {
   expect(response).toBeDefined();
 
   await expect(fullResponse.toLowerCase()).toContain("quantum computing");
-  // await expect(response.message.content).toContain("quantum computing");
 });
