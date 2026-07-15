@@ -2,11 +2,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const isCI = !!process.env.GITHUB_ACTIONS;
+
+export const config = {
+  ollamaHost: isCI
+    ? "https://ollama.com"
+    : "http://localhost:11434",
+};
+
 export const env = {
-  //   openAIKey: process.env.OPENAI_API_KEY!,
-  //   anthropicKey: process.env.ANTHROPIC_API_KEY!,
-  //   geminiKey: process.env.GEMINI_API_KEY!,
-  ollamaUrl: process.env.OLLAMA_URL ?? "http://localhost:11434",
+  ollamaUrl: process.env.OLLAMA_URL ?? config.ollamaHost,
   ollamaApiKey: process.env.OLLAMA_API_KEY,
   ollamaModel: process.env.OLLAMA_MODEL ?? "gemma3:1b",
 };
