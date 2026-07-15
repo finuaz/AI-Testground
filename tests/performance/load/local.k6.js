@@ -1,21 +1,14 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import { env } from "../../utils/env.k6.ts";
+import { env } from "../../../utils/env.k6.ts";
 
 const ollamaModel = env.ollamaModel;
+const maxVUs = env.isCI ? 80 : 20;
 
 export const options = {
-  scenarios: {
-    contacts: {
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '30s', target: 100 },
-        { duration: '60s', target: 50 },  // Ramp down to 50 VUs over 60 seconds
-      ],
-    },
-  },
-};
+  stages: [
+  { duration: '2m', target: maxVUs },
+]};
 
 export default function () {
   const payload = JSON.stringify({

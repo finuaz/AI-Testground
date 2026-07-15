@@ -1,8 +1,9 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import { env } from "../../utils/env.k6.ts";
+import { env } from "../../../utils/env.k6.ts";
 
 const ollamaModel = env.ollamaModel;
+const maxVUs = env.isCI ? 80 : 20;
 
 export const options = {
   scenarios: {
@@ -10,13 +11,11 @@ export const options = {
       executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '30s', target: 5 },
-        { duration: '30s', target: 10 },
-        { duration: '30s', target: 20 },
-        { duration: '30s', target: 30 },
-        { duration: '30s', target: 40 },
-        { duration: '30s', target: 50 },
-        { duration: '30s', target: 60 },
+        { duration: '20s', target: Math.round(maxVUs * 0.15) },
+        { duration: '20s', target: Math.round(maxVUs * 0.3) },
+        { duration: '20s', target: Math.round(maxVUs * 0.5) },
+        { duration: '20s', target: Math.round(maxVUs * 0.8) },
+        { duration: '20s', target: maxVUs },
       ]
     },
   },
