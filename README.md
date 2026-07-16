@@ -83,15 +83,15 @@ The project serves both as a learning platform and a reusable QA framework for A
 
 ## 🛠 Tech Stack
 
-| Category | Technologies |
-|-----------|--------------|
-| Language | TypeScript |
-| Automation | Playwright |
-| Performance | k6 |
-| AI Runtime | Ollama |
-| Models | Gemma 3 |
-| Containerization | Docker |
-| CI/CD | GitHub Actions |
+| Category         | Technologies   |
+| ---------------- | -------------- |
+| Language         | TypeScript     |
+| Automation       | Playwright     |
+| Performance      | k6             |
+| AI Runtime       | Ollama         |
+| Models           | Gemma 3        |
+| Containerization | Docker         |
+| CI/CD            | GitHub Actions |
 
 ## Project Structure
 

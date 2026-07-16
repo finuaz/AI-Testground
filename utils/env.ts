@@ -5,9 +5,7 @@ dotenv.config();
 const isCI = !!process.env.GITHUB_ACTIONS;
 
 export const config = {
-  ollamaHost: isCI
-    ? "https://ollama.com"
-    : "http://localhost:11434",
+  ollamaHost: isCI ? "https://ollama.com" : "http://localhost:11434",
 };
 
 export const env = {

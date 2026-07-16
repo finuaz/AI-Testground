@@ -8,15 +8,15 @@ const maxVUs = env.isCI ? 80 : 20;
 export const options = {
   scenarios: {
     contacts: {
-      executor: 'ramping-vus',
+      executor: "ramping-vus",
       startVUs: 0,
       stages: [
-        { duration: '20s', target: Math.round(maxVUs * 0.15) },
-        { duration: '20s', target: maxVUs },
-        { duration: '20s', target: Math.round(maxVUs * 0.3) },
-        { duration: '20s', target: Math.round(maxVUs * 0.5) },
-        { duration: '20s', target: Math.round(maxVUs * 0.8) },
-      ]
+        { duration: "20s", target: Math.round(maxVUs * 0.15) },
+        { duration: "20s", target: maxVUs },
+        { duration: "20s", target: Math.round(maxVUs * 0.3) },
+        { duration: "20s", target: Math.round(maxVUs * 0.5) },
+        { duration: "20s", target: Math.round(maxVUs * 0.8) },
+      ],
     },
   },
 };
@@ -34,9 +34,9 @@ export default function () {
     },
   });
 
-//   console.log(res.timings.duration);
-//   console.log(res.status);
-//   console.log(res.body);
+  //   console.log(res.timings.duration);
+  //   console.log(res.status);
+  //   console.log(res.body);
   check(res, { "status is 200": (res) => res.status === 200 });
   sleep(1);
 }

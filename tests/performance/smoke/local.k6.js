@@ -22,9 +22,9 @@ export default function () {
     },
   });
 
-//   console.log(res.timings.duration);
-//   console.log(res.status);
-//   console.log(res.body);
+  //   console.log(res.timings.duration);
+  //   console.log(res.status);
+  //   console.log(res.body);
   check(res, { "status is 200": (res) => res.status === 200 });
   sleep(1);
 }

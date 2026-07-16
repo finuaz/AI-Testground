@@ -8,27 +8,21 @@ const apiKey = env.ollamaApiKey;
 const maxVUs = env.isCI ? 80 : 20;
 
 export const options = {
-  stages: [
-  { duration: '2m', target: maxVUs },
-]};
+  stages: [{ duration: "2m", target: maxVUs }],
+};
 
-export default function () {
-  const ollama = new Ollama({
-      host: ollamaUrl,
-      headers: {
-        Authorization: "Bearer " + apiKey,
-      },
-    });
-  
-    const response = await ollama.chat({
-      model: ollamaModel,
-      messages: [{ role: "user", content: "What is 2+2?" }],
-      stream: false,
-    });
+export default async function () {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  };
 
-//   console.log(res.timings.duration);
-//   console.log(res.status);
-//   console.log(res.body);
+  const res = http.post(`${ollamaUrl}/api/chat`, payload, { headers });
+
+  check(res, {
+    "status is 200": (r) => r.status === 200,
+  });
+
   check(res, { "status is 200": (res) => res.status === 200 });
   sleep(1);
 }
