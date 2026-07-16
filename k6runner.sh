@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## smoke test
-# k6 run ./tests/performance/smoke/local.k6.js
-k6 run ./tests/performance/smoke/api.k6.js
+k6 run ./tests/performance/smoke/local.k6.js
+# k6 run ./tests/performance/smoke/api.k6.js
 
 ## load test
 k6 run ./tests/performance/load/local.k6.js
