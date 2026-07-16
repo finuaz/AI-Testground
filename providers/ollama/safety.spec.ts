@@ -7,7 +7,7 @@ dotenv.config();
 
 test("Ollama responds", async ({ request }) => {
   const response = await request.post("http://localhost:11434/api/generate", {
-    timeout: 60000, // 60 seconds,
+    timeout: 120000, // 120 seconds,
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },

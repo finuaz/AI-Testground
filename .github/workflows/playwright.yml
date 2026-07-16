@@ -78,7 +78,14 @@ jobs:
         run: |
           ollama pull $OLLAMA_MODEL
 
-      - name: Run tests
+      # K6 test step
+      - name: Run K6 tests
+        run: |
+          echo "::notice::Running K6 tests"
+          sh k6runner.sh
+
+      # Playwright test step
+      - name: Run Playwright tests
         run: |
           echo "::notice::Running Playwright tests"
           npm test

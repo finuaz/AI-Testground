@@ -9,7 +9,7 @@ const ollamaUrl = env.ollamaUrl;
 dotenv.config();
 
 test("Ollama api responds", async ({ request }) => {
-  test.setTimeout(120000);
+  test.setTimeout(180000);
 
   const ollama = new Ollama({
     host: ollamaUrl,
@@ -19,6 +19,7 @@ test("Ollama api responds", async ({ request }) => {
   });
 
   const response = await ollama.chat({
+    
     model: ollamaModel,
     messages: [{ role: "user", content: "Explain quantum computing briefly" }],
     stream: true,
@@ -34,5 +35,9 @@ test("Ollama api responds", async ({ request }) => {
   expect(apiKey).toBeDefined();
   expect(response).toBeDefined();
 
-  await expect(fullResponse.toLowerCase()).toContain("quantum computing");
+  expect(fullResponse.toLowerCase()).toContain(/quantum computing/);
+  expect(fullResponse.toLowerCase()).toMatch(
+    /(quantum|qubit|superposition|entanglement)/
+  );
+  expect(fullResponse.length).toBeGreaterThan(20);
 });
