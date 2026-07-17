@@ -3,6 +3,7 @@
 ## Quick Reference
 
 ### Test Commands
+
 - **Run all tests**: `npm test`
 - **Run tests with UI**: `npm test -- --ui`
 - **Run tests in debug mode**: `npm test -- --debug`
@@ -12,6 +13,7 @@
 - **View last test report**: `npm run report`
 
 ### Code Quality
+
 - **Lint**: `npm run lint`
 - **Fix linting issues**: `npm run lint:fix`
 - **Check formatting**: `npm run format:check`
@@ -20,11 +22,13 @@
 - **CI validation**: `npm run check:ci` (uses dot reporter)
 
 ### Performance Testing
+
 - **Run k6 performance tests**: `sh k6runner.sh`
 - **Run single k6 test**: `k6 run ./tests/performance/{category}/{type}.k6.js`
   - Example: `k6 run ./tests/performance/load/local.k6.js`
 
 ### Other
+
 - **Generate Playwright tests**: `npm run codegen`
 - **Start Ollama server**: `npm run ollama:start`
 - **Docker validation**: `npm run docker:check`
@@ -32,6 +36,7 @@
 ## Architecture
 
 ### Test Organization
+
 Tests are organized by testing type, not by feature:
 
 ```
@@ -58,9 +63,11 @@ tests/
 ```
 
 ### Provider Architecture
+
 The codebase supports multiple AI provider backends:
 
 **Ollama** (`providers/ollama.ts`):
+
 - Local LLM execution
 - Default in development (`http://localhost:11434`)
 - CI environment: Uses remote Ollama instance
@@ -68,11 +75,13 @@ The codebase supports multiple AI provider backends:
 - Model configuration: Defaults to `gemma3:1b`, overridable via `OLLAMA_MODEL` env var
 
 **OpenRouter** (`providers/openrouter.ts`):
+
 - Cloud-based LLM provider
 - Requires `OPENROUTER_API_KEY` environment variable
 - Used in SDK tests for cloud model evaluation
 
 ### Testing Framework
+
 - **Playwright**: Browser automation and end-to-end testing
   - Configuration: `playwright.config.ts`
   - Single worker (retries: 2) to prevent race conditions
@@ -86,12 +95,14 @@ The codebase supports multiple AI provider backends:
 ## Key Conventions
 
 ### TypeScript Configuration
+
 - **Target**: ES2022
 - **Module**: CommonJS
 - **Strict mode**: Enabled
 - **Types**: Node + Playwright
 
 ### Code Formatting
+
 - **Prettier** configuration in `.prettierrc`:
   - Print width: 100
   - Tab width: 2
@@ -104,6 +115,7 @@ The codebase supports multiple AI provider backends:
   - Config: `eslint.config.js` (ESLint flat config format)
 
 ### Environment & Configuration
+
 - **Environment file**: `.env` (not committed, contains local overrides)
 - **Config module**: `utils/env.ts`
   - Loads via `dotenv.config()`
@@ -116,11 +128,13 @@ The codebase supports multiple AI provider backends:
   - `OPENROUTER_API_KEY`: OpenRouter credentials
 
 ### Test File Naming & Structure
+
 - Playwright tests: `*.spec.ts` (Playwright convention)
 - k6 performance tests: `*.k6.js` (k6 convention, JavaScript not TypeScript)
 - File structure mirrors test type: `tests/{category}/{name}.spec.ts` or `tests/performance/{type}/{name}.k6.js`
 
 ### Playwright Configuration Specifics
+
 - **Base URL**: https://www.decathlon.co.id (configured for UI tests)
 - **Locale**: id-ID (Indonesian)
 - **Timezone**: Asia/Jakarta
@@ -131,7 +145,9 @@ The codebase supports multiple AI provider backends:
 - **Color scheme**: Dark mode
 
 ### CI/CD Workflow
+
 GitHub Actions workflow (`.github/workflows/playwright.yml`):
+
 - Triggers: Push to `main`, PR to `main`, daily schedule (midnight UTC), manual dispatch
 - Container: `mcr.microsoft.com/playwright:v1.61.1-noble`
 - Node.js: v24 with npm caching
@@ -146,31 +162,37 @@ GitHub Actions workflow (`.github/workflows/playwright.yml`):
 ## Shared State & Utilities
 
 ### Environment Utilities
+
 Location: `utils/env.ts`
 
 ```typescript
 // Exports
-config          // Static configuration (Ollama host based on CI)
-env             // Runtime environment variables
-OPENROUTER_API_KEY  // Direct export for convenience
+config; // Static configuration (Ollama host based on CI)
+env; // Runtime environment variables
+OPENROUTER_API_KEY; // Direct export for convenience
 ```
 
 Use in tests:
+
 ```typescript
 import { env, config, OPENROUTER_API_KEY } from "../utils/env";
 ```
 
 ### k6 Environment Integration
+
 Location: `utils/env.k6.ts`
+
 - Separate utilities for k6 JavaScript context (different from TypeScript Node.js)
 
 ## Adding Tests
 
 ### Playwright Test Template
+
 1. Place in `tests/{category}/{name}.spec.ts`
 2. Import environment: `import { env } from "../utils/env"`
 3. Use Playwright's `test` function
 4. Example:
+
 ```typescript
 import { test, expect } from "@playwright/test";
 import { env } from "../utils/env";
@@ -182,6 +204,7 @@ test("should validate response", async ({ request }) => {
 ```
 
 ### Performance Test Template
+
 1. Place in `tests/performance/{type}/{name}.k6.js`
 2. Use k6 HTTP module
 3. Define `export let options = { ... }`
@@ -191,17 +214,20 @@ test("should validate response", async ({ request }) => {
 ## Debugging & Troubleshooting
 
 ### Local Setup
+
 1. **Ollama**: Start with `npm run ollama:start` (runs on `http://localhost:11434`)
 2. **Pull model**: `ollama pull gemma3:1b` (or override with `OLLAMA_MODEL`)
 3. **Verify**: Check `utils/env.ts` and `.env` for configuration
 
 ### Test Debugging
+
 - Use `npm test -- --debug` to step through code in Inspector
 - Use `npm test -- --headed` to see browser window
 - Use `npm test -- --ui` for Playwright Inspector with test picker
 - Generated trace/video in test results when failures occur
 
 ### Common Issues
+
 - **Ollama connection**: Verify Ollama is running on correct host (check `GITHUB_ACTIONS` detection)
 - **Test timeouts**: Adjust in `playwright.config.ts` (global timeout: 30s, expect: 5s, action: 10s)
 - **Environment vars**: Ensure `.env` file exists locally or vars are set system-wide
@@ -213,6 +239,7 @@ Build: `docker build -t ai-testground:latest .`
 Run validation: `npm run docker:check`
 
 The Dockerfile:
+
 - Uses Playwright base image (v1.61.1)
 - Installs dependencies with `npm ci`
 - Sets `CI=true` environment variable
