@@ -12,7 +12,7 @@
 # Error details
 
 ```
-ResponseError: gemma3:4b was retired at 2026-07-15 00:00:00 -0700 PDT (ref: 1ccb3a4f-0303-4ec1-99ab-68d82117f2e6)
+ResponseError: gemma3:4b was retired at 2026-07-15 00:00:00 -0700 PDT (ref: e4dc0508-dc42-4880-b673-fa42c8ef483c)
 ```
 
 # Test source
@@ -39,7 +39,7 @@ ResponseError: gemma3:4b was retired at 2026-07-15 00:00:00 -0700 PDT (ref: 1ccb
   19 |   });
   20 | 
 > 21 |   const response = await ollama.chat({
-     |                    ^ ResponseError: gemma3:4b was retired at 2026-07-15 00:00:00 -0700 PDT (ref: 1ccb3a4f-0303-4ec1-99ab-68d82117f2e6)
+     |                    ^ ResponseError: gemma3:4b was retired at 2026-07-15 00:00:00 -0700 PDT (ref: e4dc0508-dc42-4880-b673-fa42c8ef483c)
   22 |     
   23 |     model: ollamaModel,
   24 |     messages: [{ role: "user", content: "Explain quantum computing briefly" }],
