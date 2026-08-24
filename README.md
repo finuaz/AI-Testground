@@ -134,3 +134,6 @@ Future versions will include consolidated dashboards and trend analysis.
 - [ ] Cloud LLM support
 - [ ] Security testing
 - [ ] RAG evaluation
+
+<!-- Note -->
+<!-- To run venv : .\.venv\Scripts\Activate.ps1 -->
